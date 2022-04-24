@@ -1,0 +1,38 @@
+const: 10 operation: =
+global-variable: a
+
+var: y FUNC-ARG
+var: x FUNC-ARG
+FUNCTION-DECLARATION
+identifier: func
+
+string: "This is a function: %s\n"  FUNC-ARG
+var: var  FUNC-ARG
+FUNCTION-CALL
+identifier: printf
+
+local-variable: y
+var: i const: 10 operation: < WHILE-CONDITION
+var: a  FUNC-ARG
+var: b  FUNC-ARG
+FUNCTION-CALL: func  FUNC-ARG
+FUNCTION-CALL: func var: x operation: + operation: =
+local-variable: y 
+WHILE-LOOP
+var: y const: 0 operation: ==  IF-EXPRESSION
+string: "This is a sentence"  FUNC-ARG
+FUNCTION-CALL
+identifier: printf
+
+IF-BODY
+string: "This is another sentence"  FUNC-ARG
+FUNCTION-CALL
+identifier: printf
+
+ELSE-BODY
+IF-ELSE STATEMENT
+
+const: 15 RETURN
+FUNCTION-BODY
+identifier: main
+

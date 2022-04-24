@@ -1,0 +1,1428 @@
+Terminals unused in grammar
+
+    FOR
+
+
+State 3 conflicts: 1 reduce/reduce
+State 71 conflicts: 1 reduce/reduce
+State 72 conflicts: 1 reduce/reduce
+State 82 conflicts: 1 reduce/reduce
+State 84 conflicts: 1 reduce/reduce
+State 85 conflicts: 1 reduce/reduce
+State 86 conflicts: 1 reduce/reduce
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: statements program
+    2        | statements
+    3        | %empty
+
+    4 statements: variable_declaration
+    5           | function_declaration
+    6           | function_definition
+
+    7 variable_declaration: TYPE ID
+    8                     | TYPE ID ASSIGN expression
+
+    9 expressions: expression COMMA expressions
+   10            | expression
+   11            | %empty
+
+   12 expression: rel_exp AND rel_exp
+   13           | rel_exp OR rel_exp
+   14           | rel_exp
+
+   15 rel_exp: ar_exp EQUAL ar_exp
+   16        | ar_exp NOTEQUAL ar_exp
+   17        | ar_exp LE ar_exp
+   18        | ar_exp GE ar_exp
+   19        | ar_exp GREATER ar_exp
+   20        | ar_exp LESSER ar_exp
+   21        | ar_exp
+
+   22 ar_exp: mul_exp ADD mul_exp
+   23       | mul_exp SUB mul_exp
+   24       | mul_exp
+
+   25 mul_exp: ind_exp MULTIPLY ind_exp
+   26        | ind_exp DIV ind_exp
+   27        | ind_exp
+
+   28 ind_exp: final
+   29        | ID OBRACK expression EBRACK
+   30        | ID OPAREN expressions EPAREN
+
+   31 final: NUMBER
+   32      | ID
+   33      | STRING
+   34      | OPAREN expression EPAREN
+
+   35 function_declaration: TYPE ID OPAREN arguements EPAREN SEMI
+
+   36 arguements: TYPE ID
+   37           | TYPE ID COMMA arguements
+   38           | %empty
+
+   39 function_definition: TYPE ID OPAREN arguements EPAREN OBRACE body EBRACE
+
+   40 body: variable_declaration SEMI body
+   41     | variable_declaration SEMI
+   42     | assignment SEMI body
+   43     | assignment SEMI
+   44     | function_call SEMI body
+   45     | function_call SEMI
+   46     | return SEMI body
+   47     | return SEMI
+   48     | if_else body
+   49     | if_else
+   50     | while body
+   51     | while
+   52     | %empty
+
+   53 assignment: ID ASSIGN expression
+
+   54 function_call: ID OPAREN expressions EPAREN
+
+   55 return: RETURN expression
+
+   56 if_else: IF OPAREN expression EPAREN OBRACE body EBRACE
+   57        | IF OPAREN expression EPAREN OBRACE body EBRACE ELSE OBRACE body EBRACE
+
+   58 while: WHILE OPAREN expression EPAREN OBRACE body EBRACE
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    TYPE (258) 7 8 35 36 37 39
+    ID (259) 7 8 29 30 32 35 36 37 39 53 54
+    NUMBER (260) 31
+    OPAREN (261) 30 34 35 39 54 56 57 58
+    EPAREN (262) 30 34 35 39 54 56 57 58
+    COMMA (263) 9 37
+    OBRACK (264) 29
+    EBRACK (265) 29
+    OBRACE (266) 39 56 57 58
+    EBRACE (267) 39 56 57 58
+    ASSIGN (268) 8 53
+    EQUAL (269) 15
+    NOTEQUAL (270) 16
+    SUB (271) 23
+    DIV (272) 26
+    MULTIPLY (273) 25
+    ADD (274) 22
+    SEMI (275) 35 40 41 42 43 44 45 46 47
+    AND (276) 12
+    LE (277) 17
+    GE (278) 18
+    GREATER (279) 19
+    LESSER (280) 20
+    IF (281) 56 57
+    ELSE (282) 57
+    WHILE (283) 58
+    FOR (284)
+    RETURN (285) 55
+    OR (286) 13
+    STRING (287) 33
+
+
+Nonterminals, with rules where they appear
+
+    $accept (33)
+        on left: 0
+    program (34)
+        on left: 1 2 3
+        on right: 0 1
+    statements (35)
+        on left: 4 5 6
+        on right: 1 2
+    variable_declaration (36)
+        on left: 7 8
+        on right: 4 40 41
+    expressions (37)
+        on left: 9 10 11
+        on right: 9 30 54
+    expression (38)
+        on left: 12 13 14
+        on right: 8 9 10 29 34 53 55 56 57 58
+    rel_exp (39)
+        on left: 15 16 17 18 19 20 21
+        on right: 12 13 14
+    ar_exp (40)
+        on left: 22 23 24
+        on right: 15 16 17 18 19 20 21
+    mul_exp (41)
+        on left: 25 26 27
+        on right: 22 23 24
+    ind_exp (42)
+        on left: 28 29 30
+        on right: 25 26 27
+    final (43)
+        on left: 31 32 33 34
+        on right: 28
+    function_declaration (44)
+        on left: 35
+        on right: 5
+    arguements (45)
+        on left: 36 37 38
+        on right: 35 37 39
+    function_definition (46)
+        on left: 39
+        on right: 6
+    body (47)
+        on left: 40 41 42 43 44 45 46 47 48 49 50 51 52
+        on right: 39 40 42 44 46 48 50 56 57 58
+    assignment (48)
+        on left: 53
+        on right: 42 43
+    function_call (49)
+        on left: 54
+        on right: 44 45
+    return (50)
+        on left: 55
+        on right: 46 47
+    if_else (51)
+        on left: 56 57
+        on right: 48 49
+    while (52)
+        on left: 58
+        on right: 50 51
+
+
+State 0
+
+    0 $accept: . program $end
+
+    TYPE  shift, and go to state 1
+
+    $default  reduce using rule 3 (program)
+
+    program               go to state 2
+    statements            go to state 3
+    variable_declaration  go to state 4
+    function_declaration  go to state 5
+    function_definition   go to state 6
+
+
+State 1
+
+    7 variable_declaration: TYPE . ID
+    8                     | TYPE . ID ASSIGN expression
+   35 function_declaration: TYPE . ID OPAREN arguements EPAREN SEMI
+   39 function_definition: TYPE . ID OPAREN arguements EPAREN OBRACE body EBRACE
+
+    ID  shift, and go to state 7
+
+
+State 2
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 8
+
+
+State 3
+
+    1 program: statements . program
+    2        | statements .
+
+    TYPE  shift, and go to state 1
+
+    $end      reduce using rule 2 (program)
+    $end      [reduce using rule 3 (program)]
+    $default  reduce using rule 2 (program)
+
+    program               go to state 9
+    statements            go to state 3
+    variable_declaration  go to state 4
+    function_declaration  go to state 5
+    function_definition   go to state 6
+
+
+State 4
+
+    4 statements: variable_declaration .
+
+    $default  reduce using rule 4 (statements)
+
+
+State 5
+
+    5 statements: function_declaration .
+
+    $default  reduce using rule 5 (statements)
+
+
+State 6
+
+    6 statements: function_definition .
+
+    $default  reduce using rule 6 (statements)
+
+
+State 7
+
+    7 variable_declaration: TYPE ID .
+    8                     | TYPE ID . ASSIGN expression
+   35 function_declaration: TYPE ID . OPAREN arguements EPAREN SEMI
+   39 function_definition: TYPE ID . OPAREN arguements EPAREN OBRACE body EBRACE
+
+    OPAREN  shift, and go to state 10
+    ASSIGN  shift, and go to state 11
+
+    $default  reduce using rule 7 (variable_declaration)
+
+
+State 8
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+State 9
+
+    1 program: statements program .
+
+    $default  reduce using rule 1 (program)
+
+
+State 10
+
+   35 function_declaration: TYPE ID OPAREN . arguements EPAREN SEMI
+   39 function_definition: TYPE ID OPAREN . arguements EPAREN OBRACE body EBRACE
+
+    TYPE  shift, and go to state 12
+
+    $default  reduce using rule 38 (arguements)
+
+    arguements  go to state 13
+
+
+State 11
+
+    8 variable_declaration: TYPE ID ASSIGN . expression
+
+    ID      shift, and go to state 14
+    NUMBER  shift, and go to state 15
+    OPAREN  shift, and go to state 16
+    STRING  shift, and go to state 17
+
+    expression  go to state 18
+    rel_exp     go to state 19
+    ar_exp      go to state 20
+    mul_exp     go to state 21
+    ind_exp     go to state 22
+    final       go to state 23
+
+
+State 12
+
+   36 arguements: TYPE . ID
+   37           | TYPE . ID COMMA arguements
+
+    ID  shift, and go to state 24
+
+
+State 13
+
+   35 function_declaration: TYPE ID OPAREN arguements . EPAREN SEMI
+   39 function_definition: TYPE ID OPAREN arguements . EPAREN OBRACE body EBRACE
+
+    EPAREN  shift, and go to state 25
+
+
+State 14
+
+   29 ind_exp: ID . OBRACK expression EBRACK
+   30        | ID . OPAREN expressions EPAREN
+   32 final: ID .
+
+    OPAREN  shift, and go to state 26
+    OBRACK  shift, and go to state 27
+
+    $default  reduce using rule 32 (final)
+
+
+State 15
+
+   31 final: NUMBER .
+
+    $default  reduce using rule 31 (final)
+
+
+State 16
+
+   34 final: OPAREN . expression EPAREN
+
+    ID      shift, and go to state 14
+    NUMBER  shift, and go to state 15
+    OPAREN  shift, and go to state 16
+    STRING  shift, and go to state 17
+
+    expression  go to state 28
+    rel_exp     go to state 19
+    ar_exp      go to state 20
+    mul_exp     go to state 21
+    ind_exp     go to state 22
+    final       go to state 23
+
+
+State 17
+
+   33 final: STRING .
+
+    $default  reduce using rule 33 (final)
+
+
+State 18
+
+    8 variable_declaration: TYPE ID ASSIGN expression .
+
+    $default  reduce using rule 8 (variable_declaration)
+
+
+State 19
+
+   12 expression: rel_exp . AND rel_exp
+   13           | rel_exp . OR rel_exp
+   14           | rel_exp .
+
+    AND  shift, and go to state 29
+    OR   shift, and go to state 30
+
+    $default  reduce using rule 14 (expression)
+
+
+State 20
+
+   15 rel_exp: ar_exp . EQUAL ar_exp
+   16        | ar_exp . NOTEQUAL ar_exp
+   17        | ar_exp . LE ar_exp
+   18        | ar_exp . GE ar_exp
+   19        | ar_exp . GREATER ar_exp
+   20        | ar_exp . LESSER ar_exp
+   21        | ar_exp .
+
+    EQUAL     shift, and go to state 31
+    NOTEQUAL  shift, and go to state 32
+    LE        shift, and go to state 33
+    GE        shift, and go to state 34
+    GREATER   shift, and go to state 35
+    LESSER    shift, and go to state 36
+
+    $default  reduce using rule 21 (rel_exp)
+
+
+State 21
+
+   22 ar_exp: mul_exp . ADD mul_exp
+   23       | mul_exp . SUB mul_exp
+   24       | mul_exp .
+
+    SUB  shift, and go to state 37
+    ADD  shift, and go to state 38
+
+    $default  reduce using rule 24 (ar_exp)
+
+
+State 22
+
+   25 mul_exp: ind_exp . MULTIPLY ind_exp
+   26        | ind_exp . DIV ind_exp
+   27        | ind_exp .
+
+    DIV       shift, and go to state 39
+    MULTIPLY  shift, and go to state 40
+
+    $default  reduce using rule 27 (mul_exp)
+
+
+State 23
+
+   28 ind_exp: final .
+
+    $default  reduce using rule 28 (ind_exp)
+
+
+State 24
+
+   36 arguements: TYPE ID .
+   37           | TYPE ID . COMMA arguements
+
+    COMMA  shift, and go to state 41
+
+    $default  reduce using rule 36 (arguements)
+
+
+State 25
+
+   35 function_declaration: TYPE ID OPAREN arguements EPAREN . SEMI
+   39 function_definition: TYPE ID OPAREN arguements EPAREN . OBRACE body EBRACE
+
+    OBRACE  shift, and go to state 42
+    SEMI    shift, and go to state 43
+
+
+State 26
+
+   30 ind_exp: ID OPAREN . expressions EPAREN
+
+    ID      shift, and go to state 14
+    NUMBER  shift, and go to state 15
+    OPAREN  shift, and go to state 16
+    STRING  shift, and go to state 17
+
+    $default  reduce using rule 11 (expressions)
+
+    expressions  go to state 44
+    expression   go to state 45
+    rel_exp      go to state 19
+    ar_exp       go to state 20
+    mul_exp      go to state 21
+    ind_exp      go to state 22
+    final        go to state 23
+
+
+State 27
+
+   29 ind_exp: ID OBRACK . expression EBRACK
+
+    ID      shift, and go to state 14
+    NUMBER  shift, and go to state 15
+    OPAREN  shift, and go to state 16
+    STRING  shift, and go to state 17
+
+    expression  go to state 46
+    rel_exp     go to state 19
+    ar_exp      go to state 20
+    mul_exp     go to state 21
+    ind_exp     go to state 22
+    final       go to state 23
+
+
+State 28
+
+   34 final: OPAREN expression . EPAREN
+
+    EPAREN  shift, and go to state 47
+
+
+State 29
+
+   12 expression: rel_exp AND . rel_exp
+
+    ID      shift, and go to state 14
+    NUMBER  shift, and go to state 15
+    OPAREN  shift, and go to state 16
+    STRING  shift, and go to state 17
+
+    rel_exp  go to state 48
+    ar_exp   go to state 20
+    mul_exp  go to state 21
+    ind_exp  go to state 22
+    final    go to state 23
+
+
+State 30
+
+   13 expression: rel_exp OR . rel_exp
+
+    ID      shift, and go to state 14
+    NUMBER  shift, and go to state 15
+    OPAREN  shift, and go to state 16
+    STRING  shift, and go to state 17
+
+    rel_exp  go to state 49
+    ar_exp   go to state 20
+    mul_exp  go to state 21
+    ind_exp  go to state 22
+    final    go to state 23
+
+
+State 31
+
+   15 rel_exp: ar_exp EQUAL . ar_exp
+
+    ID      shift, and go to state 14
+    NUMBER  shift, and go to state 15
+    OPAREN  shift, and go to state 16
+    STRING  shift, and go to state 17
+
+    ar_exp   go to state 50
+    mul_exp  go to state 21
+    ind_exp  go to state 22
+    final    go to state 23
+
+
+State 32
+
+   16 rel_exp: ar_exp NOTEQUAL . ar_exp
+
+    ID      shift, and go to state 14
+    NUMBER  shift, and go to state 15
+    OPAREN  shift, and go to state 16
+    STRING  shift, and go to state 17
+
+    ar_exp   go to state 51
+    mul_exp  go to state 21
+    ind_exp  go to state 22
+    final    go to state 23
+
+
+State 33
+
+   17 rel_exp: ar_exp LE . ar_exp
+
+    ID      shift, and go to state 14
+    NUMBER  shift, and go to state 15
+    OPAREN  shift, and go to state 16
+    STRING  shift, and go to state 17
+
+    ar_exp   go to state 52
+    mul_exp  go to state 21
+    ind_exp  go to state 22
+    final    go to state 23
+
+
+State 34
+
+   18 rel_exp: ar_exp GE . ar_exp
+
+    ID      shift, and go to state 14
+    NUMBER  shift, and go to state 15
+    OPAREN  shift, and go to state 16
+    STRING  shift, and go to state 17
+
+    ar_exp   go to state 53
+    mul_exp  go to state 21
+    ind_exp  go to state 22
+    final    go to state 23
+
+
+State 35
+
+   19 rel_exp: ar_exp GREATER . ar_exp
+
+    ID      shift, and go to state 14
+    NUMBER  shift, and go to state 15
+    OPAREN  shift, and go to state 16
+    STRING  shift, and go to state 17
+
+    ar_exp   go to state 54
+    mul_exp  go to state 21
+    ind_exp  go to state 22
+    final    go to state 23
+
+
+State 36
+
+   20 rel_exp: ar_exp LESSER . ar_exp
+
+    ID      shift, and go to state 14
+    NUMBER  shift, and go to state 15
+    OPAREN  shift, and go to state 16
+    STRING  shift, and go to state 17
+
+    ar_exp   go to state 55
+    mul_exp  go to state 21
+    ind_exp  go to state 22
+    final    go to state 23
+
+
+State 37
+
+   23 ar_exp: mul_exp SUB . mul_exp
+
+    ID      shift, and go to state 14
+    NUMBER  shift, and go to state 15
+    OPAREN  shift, and go to state 16
+    STRING  shift, and go to state 17
+
+    mul_exp  go to state 56
+    ind_exp  go to state 22
+    final    go to state 23
+
+
+State 38
+
+   22 ar_exp: mul_exp ADD . mul_exp
+
+    ID      shift, and go to state 14
+    NUMBER  shift, and go to state 15
+    OPAREN  shift, and go to state 16
+    STRING  shift, and go to state 17
+
+    mul_exp  go to state 57
+    ind_exp  go to state 22
+    final    go to state 23
+
+
+State 39
+
+   26 mul_exp: ind_exp DIV . ind_exp
+
+    ID      shift, and go to state 14
+    NUMBER  shift, and go to state 15
+    OPAREN  shift, and go to state 16
+    STRING  shift, and go to state 17
+
+    ind_exp  go to state 58
+    final    go to state 23
+
+
+State 40
+
+   25 mul_exp: ind_exp MULTIPLY . ind_exp
+
+    ID      shift, and go to state 14
+    NUMBER  shift, and go to state 15
+    OPAREN  shift, and go to state 16
+    STRING  shift, and go to state 17
+
+    ind_exp  go to state 59
+    final    go to state 23
+
+
+State 41
+
+   37 arguements: TYPE ID COMMA . arguements
+
+    TYPE  shift, and go to state 12
+
+    $default  reduce using rule 38 (arguements)
+
+    arguements  go to state 60
+
+
+State 42
+
+   39 function_definition: TYPE ID OPAREN arguements EPAREN OBRACE . body EBRACE
+
+    TYPE    shift, and go to state 61
+    ID      shift, and go to state 62
+    IF      shift, and go to state 63
+    WHILE   shift, and go to state 64
+    RETURN  shift, and go to state 65
+
+    $default  reduce using rule 52 (body)
+
+    variable_declaration  go to state 66
+    body                  go to state 67
+    assignment            go to state 68
+    function_call         go to state 69
+    return                go to state 70
+    if_else               go to state 71
+    while                 go to state 72
+
+
+State 43
+
+   35 function_declaration: TYPE ID OPAREN arguements EPAREN SEMI .
+
+    $default  reduce using rule 35 (function_declaration)
+
+
+State 44
+
+   30 ind_exp: ID OPAREN expressions . EPAREN
+
+    EPAREN  shift, and go to state 73
+
+
+State 45
+
+    9 expressions: expression . COMMA expressions
+   10            | expression .
+
+    COMMA  shift, and go to state 74
+
+    $default  reduce using rule 10 (expressions)
+
+
+State 46
+
+   29 ind_exp: ID OBRACK expression . EBRACK
+
+    EBRACK  shift, and go to state 75
+
+
+State 47
+
+   34 final: OPAREN expression EPAREN .
+
+    $default  reduce using rule 34 (final)
+
+
+State 48
+
+   12 expression: rel_exp AND rel_exp .
+
+    $default  reduce using rule 12 (expression)
+
+
+State 49
+
+   13 expression: rel_exp OR rel_exp .
+
+    $default  reduce using rule 13 (expression)
+
+
+State 50
+
+   15 rel_exp: ar_exp EQUAL ar_exp .
+
+    $default  reduce using rule 15 (rel_exp)
+
+
+State 51
+
+   16 rel_exp: ar_exp NOTEQUAL ar_exp .
+
+    $default  reduce using rule 16 (rel_exp)
+
+
+State 52
+
+   17 rel_exp: ar_exp LE ar_exp .
+
+    $default  reduce using rule 17 (rel_exp)
+
+
+State 53
+
+   18 rel_exp: ar_exp GE ar_exp .
+
+    $default  reduce using rule 18 (rel_exp)
+
+
+State 54
+
+   19 rel_exp: ar_exp GREATER ar_exp .
+
+    $default  reduce using rule 19 (rel_exp)
+
+
+State 55
+
+   20 rel_exp: ar_exp LESSER ar_exp .
+
+    $default  reduce using rule 20 (rel_exp)
+
+
+State 56
+
+   23 ar_exp: mul_exp SUB mul_exp .
+
+    $default  reduce using rule 23 (ar_exp)
+
+
+State 57
+
+   22 ar_exp: mul_exp ADD mul_exp .
+
+    $default  reduce using rule 22 (ar_exp)
+
+
+State 58
+
+   26 mul_exp: ind_exp DIV ind_exp .
+
+    $default  reduce using rule 26 (mul_exp)
+
+
+State 59
+
+   25 mul_exp: ind_exp MULTIPLY ind_exp .
+
+    $default  reduce using rule 25 (mul_exp)
+
+
+State 60
+
+   37 arguements: TYPE ID COMMA arguements .
+
+    $default  reduce using rule 37 (arguements)
+
+
+State 61
+
+    7 variable_declaration: TYPE . ID
+    8                     | TYPE . ID ASSIGN expression
+
+    ID  shift, and go to state 76
+
+
+State 62
+
+   53 assignment: ID . ASSIGN expression
+   54 function_call: ID . OPAREN expressions EPAREN
+
+    OPAREN  shift, and go to state 77
+    ASSIGN  shift, and go to state 78
+
+
+State 63
+
+   56 if_else: IF . OPAREN expression EPAREN OBRACE body EBRACE
+   57        | IF . OPAREN expression EPAREN OBRACE body EBRACE ELSE OBRACE body EBRACE
+
+    OPAREN  shift, and go to state 79
+
+
+State 64
+
+   58 while: WHILE . OPAREN expression EPAREN OBRACE body EBRACE
+
+    OPAREN  shift, and go to state 80
+
+
+State 65
+
+   55 return: RETURN . expression
+
+    ID      shift, and go to state 14
+    NUMBER  shift, and go to state 15
+    OPAREN  shift, and go to state 16
+    STRING  shift, and go to state 17
+
+    expression  go to state 81
+    rel_exp     go to state 19
+    ar_exp      go to state 20
+    mul_exp     go to state 21
+    ind_exp     go to state 22
+    final       go to state 23
+
+
+State 66
+
+   40 body: variable_declaration . SEMI body
+   41     | variable_declaration . SEMI
+
+    SEMI  shift, and go to state 82
+
+
+State 67
+
+   39 function_definition: TYPE ID OPAREN arguements EPAREN OBRACE body . EBRACE
+
+    EBRACE  shift, and go to state 83
+
+
+State 68
+
+   42 body: assignment . SEMI body
+   43     | assignment . SEMI
+
+    SEMI  shift, and go to state 84
+
+
+State 69
+
+   44 body: function_call . SEMI body
+   45     | function_call . SEMI
+
+    SEMI  shift, and go to state 85
+
+
+State 70
+
+   46 body: return . SEMI body
+   47     | return . SEMI
+
+    SEMI  shift, and go to state 86
+
+
+State 71
+
+   48 body: if_else . body
+   49     | if_else .
+
+    TYPE    shift, and go to state 61
+    ID      shift, and go to state 62
+    IF      shift, and go to state 63
+    WHILE   shift, and go to state 64
+    RETURN  shift, and go to state 65
+
+    EBRACE    reduce using rule 49 (body)
+    EBRACE    [reduce using rule 52 (body)]
+    $default  reduce using rule 49 (body)
+
+    variable_declaration  go to state 66
+    body                  go to state 87
+    assignment            go to state 68
+    function_call         go to state 69
+    return                go to state 70
+    if_else               go to state 71
+    while                 go to state 72
+
+
+State 72
+
+   50 body: while . body
+   51     | while .
+
+    TYPE    shift, and go to state 61
+    ID      shift, and go to state 62
+    IF      shift, and go to state 63
+    WHILE   shift, and go to state 64
+    RETURN  shift, and go to state 65
+
+    EBRACE    reduce using rule 51 (body)
+    EBRACE    [reduce using rule 52 (body)]
+    $default  reduce using rule 51 (body)
+
+    variable_declaration  go to state 66
+    body                  go to state 88
+    assignment            go to state 68
+    function_call         go to state 69
+    return                go to state 70
+    if_else               go to state 71
+    while                 go to state 72
+
+
+State 73
+
+   30 ind_exp: ID OPAREN expressions EPAREN .
+
+    $default  reduce using rule 30 (ind_exp)
+
+
+State 74
+
+    9 expressions: expression COMMA . expressions
+
+    ID      shift, and go to state 14
+    NUMBER  shift, and go to state 15
+    OPAREN  shift, and go to state 16
+    STRING  shift, and go to state 17
+
+    $default  reduce using rule 11 (expressions)
+
+    expressions  go to state 89
+    expression   go to state 45
+    rel_exp      go to state 19
+    ar_exp       go to state 20
+    mul_exp      go to state 21
+    ind_exp      go to state 22
+    final        go to state 23
+
+
+State 75
+
+   29 ind_exp: ID OBRACK expression EBRACK .
+
+    $default  reduce using rule 29 (ind_exp)
+
+
+State 76
+
+    7 variable_declaration: TYPE ID .
+    8                     | TYPE ID . ASSIGN expression
+
+    ASSIGN  shift, and go to state 11
+
+    $default  reduce using rule 7 (variable_declaration)
+
+
+State 77
+
+   54 function_call: ID OPAREN . expressions EPAREN
+
+    ID      shift, and go to state 14
+    NUMBER  shift, and go to state 15
+    OPAREN  shift, and go to state 16
+    STRING  shift, and go to state 17
+
+    $default  reduce using rule 11 (expressions)
+
+    expressions  go to state 90
+    expression   go to state 45
+    rel_exp      go to state 19
+    ar_exp       go to state 20
+    mul_exp      go to state 21
+    ind_exp      go to state 22
+    final        go to state 23
+
+
+State 78
+
+   53 assignment: ID ASSIGN . expression
+
+    ID      shift, and go to state 14
+    NUMBER  shift, and go to state 15
+    OPAREN  shift, and go to state 16
+    STRING  shift, and go to state 17
+
+    expression  go to state 91
+    rel_exp     go to state 19
+    ar_exp      go to state 20
+    mul_exp     go to state 21
+    ind_exp     go to state 22
+    final       go to state 23
+
+
+State 79
+
+   56 if_else: IF OPAREN . expression EPAREN OBRACE body EBRACE
+   57        | IF OPAREN . expression EPAREN OBRACE body EBRACE ELSE OBRACE body EBRACE
+
+    ID      shift, and go to state 14
+    NUMBER  shift, and go to state 15
+    OPAREN  shift, and go to state 16
+    STRING  shift, and go to state 17
+
+    expression  go to state 92
+    rel_exp     go to state 19
+    ar_exp      go to state 20
+    mul_exp     go to state 21
+    ind_exp     go to state 22
+    final       go to state 23
+
+
+State 80
+
+   58 while: WHILE OPAREN . expression EPAREN OBRACE body EBRACE
+
+    ID      shift, and go to state 14
+    NUMBER  shift, and go to state 15
+    OPAREN  shift, and go to state 16
+    STRING  shift, and go to state 17
+
+    expression  go to state 93
+    rel_exp     go to state 19
+    ar_exp      go to state 20
+    mul_exp     go to state 21
+    ind_exp     go to state 22
+    final       go to state 23
+
+
+State 81
+
+   55 return: RETURN expression .
+
+    $default  reduce using rule 55 (return)
+
+
+State 82
+
+   40 body: variable_declaration SEMI . body
+   41     | variable_declaration SEMI .
+
+    TYPE    shift, and go to state 61
+    ID      shift, and go to state 62
+    IF      shift, and go to state 63
+    WHILE   shift, and go to state 64
+    RETURN  shift, and go to state 65
+
+    EBRACE    reduce using rule 41 (body)
+    EBRACE    [reduce using rule 52 (body)]
+    $default  reduce using rule 41 (body)
+
+    variable_declaration  go to state 66
+    body                  go to state 94
+    assignment            go to state 68
+    function_call         go to state 69
+    return                go to state 70
+    if_else               go to state 71
+    while                 go to state 72
+
+
+State 83
+
+   39 function_definition: TYPE ID OPAREN arguements EPAREN OBRACE body EBRACE .
+
+    $default  reduce using rule 39 (function_definition)
+
+
+State 84
+
+   42 body: assignment SEMI . body
+   43     | assignment SEMI .
+
+    TYPE    shift, and go to state 61
+    ID      shift, and go to state 62
+    IF      shift, and go to state 63
+    WHILE   shift, and go to state 64
+    RETURN  shift, and go to state 65
+
+    EBRACE    reduce using rule 43 (body)
+    EBRACE    [reduce using rule 52 (body)]
+    $default  reduce using rule 43 (body)
+
+    variable_declaration  go to state 66
+    body                  go to state 95
+    assignment            go to state 68
+    function_call         go to state 69
+    return                go to state 70
+    if_else               go to state 71
+    while                 go to state 72
+
+
+State 85
+
+   44 body: function_call SEMI . body
+   45     | function_call SEMI .
+
+    TYPE    shift, and go to state 61
+    ID      shift, and go to state 62
+    IF      shift, and go to state 63
+    WHILE   shift, and go to state 64
+    RETURN  shift, and go to state 65
+
+    EBRACE    reduce using rule 45 (body)
+    EBRACE    [reduce using rule 52 (body)]
+    $default  reduce using rule 45 (body)
+
+    variable_declaration  go to state 66
+    body                  go to state 96
+    assignment            go to state 68
+    function_call         go to state 69
+    return                go to state 70
+    if_else               go to state 71
+    while                 go to state 72
+
+
+State 86
+
+   46 body: return SEMI . body
+   47     | return SEMI .
+
+    TYPE    shift, and go to state 61
+    ID      shift, and go to state 62
+    IF      shift, and go to state 63
+    WHILE   shift, and go to state 64
+    RETURN  shift, and go to state 65
+
+    EBRACE    reduce using rule 47 (body)
+    EBRACE    [reduce using rule 52 (body)]
+    $default  reduce using rule 47 (body)
+
+    variable_declaration  go to state 66
+    body                  go to state 97
+    assignment            go to state 68
+    function_call         go to state 69
+    return                go to state 70
+    if_else               go to state 71
+    while                 go to state 72
+
+
+State 87
+
+   48 body: if_else body .
+
+    $default  reduce using rule 48 (body)
+
+
+State 88
+
+   50 body: while body .
+
+    $default  reduce using rule 50 (body)
+
+
+State 89
+
+    9 expressions: expression COMMA expressions .
+
+    $default  reduce using rule 9 (expressions)
+
+
+State 90
+
+   54 function_call: ID OPAREN expressions . EPAREN
+
+    EPAREN  shift, and go to state 98
+
+
+State 91
+
+   53 assignment: ID ASSIGN expression .
+
+    $default  reduce using rule 53 (assignment)
+
+
+State 92
+
+   56 if_else: IF OPAREN expression . EPAREN OBRACE body EBRACE
+   57        | IF OPAREN expression . EPAREN OBRACE body EBRACE ELSE OBRACE body EBRACE
+
+    EPAREN  shift, and go to state 99
+
+
+State 93
+
+   58 while: WHILE OPAREN expression . EPAREN OBRACE body EBRACE
+
+    EPAREN  shift, and go to state 100
+
+
+State 94
+
+   40 body: variable_declaration SEMI body .
+
+    $default  reduce using rule 40 (body)
+
+
+State 95
+
+   42 body: assignment SEMI body .
+
+    $default  reduce using rule 42 (body)
+
+
+State 96
+
+   44 body: function_call SEMI body .
+
+    $default  reduce using rule 44 (body)
+
+
+State 97
+
+   46 body: return SEMI body .
+
+    $default  reduce using rule 46 (body)
+
+
+State 98
+
+   54 function_call: ID OPAREN expressions EPAREN .
+
+    $default  reduce using rule 54 (function_call)
+
+
+State 99
+
+   56 if_else: IF OPAREN expression EPAREN . OBRACE body EBRACE
+   57        | IF OPAREN expression EPAREN . OBRACE body EBRACE ELSE OBRACE body EBRACE
+
+    OBRACE  shift, and go to state 101
+
+
+State 100
+
+   58 while: WHILE OPAREN expression EPAREN . OBRACE body EBRACE
+
+    OBRACE  shift, and go to state 102
+
+
+State 101
+
+   56 if_else: IF OPAREN expression EPAREN OBRACE . body EBRACE
+   57        | IF OPAREN expression EPAREN OBRACE . body EBRACE ELSE OBRACE body EBRACE
+
+    TYPE    shift, and go to state 61
+    ID      shift, and go to state 62
+    IF      shift, and go to state 63
+    WHILE   shift, and go to state 64
+    RETURN  shift, and go to state 65
+
+    $default  reduce using rule 52 (body)
+
+    variable_declaration  go to state 66
+    body                  go to state 103
+    assignment            go to state 68
+    function_call         go to state 69
+    return                go to state 70
+    if_else               go to state 71
+    while                 go to state 72
+
+
+State 102
+
+   58 while: WHILE OPAREN expression EPAREN OBRACE . body EBRACE
+
+    TYPE    shift, and go to state 61
+    ID      shift, and go to state 62
+    IF      shift, and go to state 63
+    WHILE   shift, and go to state 64
+    RETURN  shift, and go to state 65
+
+    $default  reduce using rule 52 (body)
+
+    variable_declaration  go to state 66
+    body                  go to state 104
+    assignment            go to state 68
+    function_call         go to state 69
+    return                go to state 70
+    if_else               go to state 71
+    while                 go to state 72
+
+
+State 103
+
+   56 if_else: IF OPAREN expression EPAREN OBRACE body . EBRACE
+   57        | IF OPAREN expression EPAREN OBRACE body . EBRACE ELSE OBRACE body EBRACE
+
+    EBRACE  shift, and go to state 105
+
+
+State 104
+
+   58 while: WHILE OPAREN expression EPAREN OBRACE body . EBRACE
+
+    EBRACE  shift, and go to state 106
+
+
+State 105
+
+   56 if_else: IF OPAREN expression EPAREN OBRACE body EBRACE .
+   57        | IF OPAREN expression EPAREN OBRACE body EBRACE . ELSE OBRACE body EBRACE
+
+    ELSE  shift, and go to state 107
+
+    $default  reduce using rule 56 (if_else)
+
+
+State 106
+
+   58 while: WHILE OPAREN expression EPAREN OBRACE body EBRACE .
+
+    $default  reduce using rule 58 (while)
+
+
+State 107
+
+   57 if_else: IF OPAREN expression EPAREN OBRACE body EBRACE ELSE . OBRACE body EBRACE
+
+    OBRACE  shift, and go to state 108
+
+
+State 108
+
+   57 if_else: IF OPAREN expression EPAREN OBRACE body EBRACE ELSE OBRACE . body EBRACE
+
+    TYPE    shift, and go to state 61
+    ID      shift, and go to state 62
+    IF      shift, and go to state 63
+    WHILE   shift, and go to state 64
+    RETURN  shift, and go to state 65
+
+    $default  reduce using rule 52 (body)
+
+    variable_declaration  go to state 66
+    body                  go to state 109
+    assignment            go to state 68
+    function_call         go to state 69
+    return                go to state 70
+    if_else               go to state 71
+    while                 go to state 72
+
+
+State 109
+
+   57 if_else: IF OPAREN expression EPAREN OBRACE body EBRACE ELSE OBRACE body . EBRACE
+
+    EBRACE  shift, and go to state 110
+
+
+State 110
+
+   57 if_else: IF OPAREN expression EPAREN OBRACE body EBRACE ELSE OBRACE body EBRACE .
+
+    $default  reduce using rule 57 (if_else)
