@@ -4,9 +4,10 @@ Done by - Abhijith T R
 Entry no - 2020CSB1062
 
 To compile the program, run the following commands
-flex cucu.l
-bison -d cucu.y
-g++ cucu.tab.c lex.yy.c -lfl -o cucu
+flex cucu.l;
+bison -d cucu.y;
+g++ cucu.tab.c lex.yy.c -lfl -o cucu;
+
 ./cucu filename.cu
 
 Sample1.cu is the .cu file which is entirely syntactically correct.
